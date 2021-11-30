@@ -14,7 +14,7 @@ module.exports = (_, argv) => ({
   output: {
     publicPath:
       argv.mode === "production"
-        ? "https://module-federation-app-2-vathsa97.vercel.app/"
+        ? "https://module-federation-app-2.vercel.app/"
         : "http://localhost:3000/",
   },
   module: {
