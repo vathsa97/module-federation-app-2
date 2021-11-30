@@ -3,7 +3,7 @@ const { ModuleFederationPlugin } = require("webpack").container;
 const path = require("path");
 const webpack = require("webpack");
 
-module.exports = {
+module.exports = (_, argv) => ({
   entry: "./src/index",
   mode: "development",
   devServer: {
@@ -12,7 +12,10 @@ module.exports = {
     historyApiFallback: true,
   },
   output: {
-    publicPath: "http://localhost:3000/",
+    publicPath:
+      argv.mode === "production"
+        ? "https://module-federation-app-2-vathsa97.vercel.app/"
+        : "http://localhost:3000/",
   },
   module: {
     rules: [
@@ -45,11 +48,11 @@ module.exports = {
       exposes: {
         "./App2": "./src/App",
       },
-        shared: { react: { singleton: true }, 'react-dom': { singleton: true } },
+      shared: { react: { singleton: true }, "react-dom": { singleton: true } },
       // shared: ["react", "react-dom"],
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
   ],
-};
+});
